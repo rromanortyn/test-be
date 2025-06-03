@@ -17,7 +17,6 @@ app.use(
 )
 
 app.use((error, req, res, next) => {
-  console.log(error)
   switch (true) {
     case error instanceof z.ZodError:
       const firstError = error.errors[0]

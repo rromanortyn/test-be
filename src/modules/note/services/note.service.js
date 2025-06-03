@@ -8,6 +8,12 @@ const noteService = {
 
     return note
   },
+
+  async getNotes() {
+    const notes = await appPrismaClient.noteEntity.findMany()
+
+    return notes
+  },
 }
 
 module.exports = noteService
