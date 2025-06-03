@@ -16,6 +16,23 @@ const noteService = {
     return notes
   },
 
+  async getNoteById(id) {
+    const note = await appPrismaClient.noteEntity.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!note) {
+      throw new NotFoundException(
+        'NoteNotFound',
+        'A note with the specified id does not exist',
+      )
+    }
+
+    return note
+  },
+
   async updateNote(id, data) {
     const note = await appPrismaClient.noteEntity.findUnique({
       where: {
@@ -38,7 +55,17 @@ const noteService = {
     })
 
     return updatedNote
-  }
+  },
+
+  async deleteNote(id) {
+    await this.getNoteById(id)
+
+    await appPrismaClient.noteEntity.delete({
+      where: {
+        id,
+      },
+    })
+  },
 }
 
 module.exports = noteService

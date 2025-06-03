@@ -6,6 +6,7 @@ const validateRequest = require('../../../shared/middlewares/validate-request.mi
 const noteValidators = require('../validators/note.validators')
 const getNotesUseCase = require('../use-cases/get-notes.use-case')
 const updateNoteUseCase = require('../use-cases/update-note.use-case')
+const deleteNoteUseCase = require('../use-cases/delete-note.use-case')
 
 const noteRouter = Router()
 
@@ -44,6 +45,18 @@ noteRouter.put(
     res
       .status(200)
       .json(note)
+  },
+)
+
+noteRouter.delete(
+  notePaths.$id,
+  validateRequest(noteValidators.deleteNote),
+  async (req, res) => {
+    await deleteNoteUseCase.execute({
+      id: parseInt(req.params.id),
+    })
+
+    res.sendStatus(204)
   },
 )
 
