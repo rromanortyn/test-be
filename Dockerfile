@@ -8,3 +8,5 @@ COPY package-lock.json .
 RUN npm ci
 
 COPY . .
+
+RUN apt-get update -y && apt-get install -y openssl
