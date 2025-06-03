@@ -5,6 +5,7 @@ const addNoteUseCase = require('../use-cases/add-note.use-case')
 const validateRequest = require('../../../shared/middlewares/validate-request.middleware')
 const noteValidators = require('../validators/note.validators')
 const getNotesUseCase = require('../use-cases/get-notes.use-case')
+const updateNoteUseCase = require('../use-cases/update-note.use-case')
 
 const noteRouter = Router()
 
@@ -28,6 +29,21 @@ noteRouter.get(
     res
       .status(200)
       .json(notes)
+  },
+)
+
+noteRouter.put(
+  notePaths.$id,
+  validateRequest(noteValidators.updateNote),
+  async (req, res) => {
+    const note = await updateNoteUseCase.execute({
+      id: parseInt(req.params.id),
+      data: req.body,
+    })
+
+    res
+      .status(200)
+      .json(note)
   },
 )
 

@@ -6,7 +6,7 @@ const validateRequestPart = async (options) => {
   } = options
 
   const data = req[part]
-console.log(options)
+
   schema.parse(data)
 }
 

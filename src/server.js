@@ -4,6 +4,7 @@ const { z } = require('zod')
 
 const appPaths = require('./shared/consts/app-paths')
 const noteRoute = require('./modules/note/routes/note.route')
+const AppException = require('./shared/exceptions/app.exception')
 
 dotenv.config()
 
@@ -30,22 +31,28 @@ app.use((error, req, res, next) => {
             message: `"${pathString}" ${firstError.message}`,
           },
         )
+      
+      break
 
-    // case error instanceof AppException:
-      // const {
-      //   code,
-      //   message,
-      //   status,
-      // } = error
+    case error instanceof AppException:
+      const {
+        code,
+        message,
+        statusCode,
+      } = error
     
-      // const responseBody = {
-      //   code,
-      //   message,
-      // }
-    
-      // return c.json(responseBody, status as ContentfulStatusCode)    
-    
+      const responseBody = {
+        code,
+        message,
+      }
+
+      res
+        .status(statusCode)
+        .json(responseBody)
+
+      break
     default:
+      console.log(error)
       res
         .status(500)
         .json(
