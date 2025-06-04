@@ -7,7 +7,6 @@ const noteValidators = require('../validators/note.validators')
 const getNotesUseCase = require('../use-cases/get-notes.use-case')
 const updateNoteUseCase = require('../use-cases/update-note.use-case')
 const deleteNoteUseCase = require('../use-cases/delete-note.use-case')
-const autocompleteNotesUseCase = require('../use-cases/autocomplete-notes.use-case')
 const searchNotesUseCase = require('../use-cases/search-notes.use-case')
 
 const noteRouter = Router()
@@ -59,22 +58,6 @@ noteRouter.delete(
     })
 
     res.sendStatus(204)
-  },
-)
-
-noteRouter.get(
-  notePaths.autocomplete,
-  async (req, res) => {
-    const { q } = req.query
-
-    const notes = await autocompleteNotesUseCase.execute({
-      q,
-      limit: 5,
-    })
-
-    res
-      .status(200)
-      .json(notes)
   },
 )
 
