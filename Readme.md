@@ -8,7 +8,7 @@ The application will start on the port specified in the environment variables.
 Environment variables used in this application should be stored in a file called `.env` in the root of the project.
 
 **Environment variables keys and values**
-`PORT` - the port for the application to be started on
+`PORT` = '3000'
 
 `POSTGRES_HOST`
 `POSTGRES_PORT`
@@ -18,4 +18,4 @@ Environment variables used in this application should be stored in a file called
 
 `POSTGRES_DATABASE_URL` = 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?schema=public'
 
-`FRONTEND_URL` - the URL of the frontend application for usage with CORS
+`FRONTEND_URL` = 'http://localhost:3001'
