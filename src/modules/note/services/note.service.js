@@ -71,11 +71,25 @@ const noteService = {
     })
   },
 
+  async autocompleteNotes(q) {
+    const notes = await appPrismaClient.noteEntity.findMany({
+      where: {
+        title: {
+          startsWith: q.toLowerCase(),
+          mode: 'insensitive',
+        },
+      },
+    })
+
+    return notes
+  },
+
   async searchNotes(q) {
     const notes = await appPrismaClient.noteEntity.findMany({
       where: {
         title: {
           search: q.toLowerCase(),
+          mode: 'insensitive,'
         },
       },
     })
