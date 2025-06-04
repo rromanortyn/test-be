@@ -7,6 +7,7 @@ const noteValidators = require('../validators/note.validators')
 const getNotesUseCase = require('../use-cases/get-notes.use-case')
 const updateNoteUseCase = require('../use-cases/update-note.use-case')
 const deleteNoteUseCase = require('../use-cases/delete-note.use-case')
+const searchNotesUseCase = require('../use-cases/search-notes.use-case')
 
 const noteRouter = Router()
 
@@ -58,6 +59,21 @@ noteRouter.delete(
 
     res.sendStatus(204)
   },
+
+  noteRouter.get(
+  notePaths.search,
+  async (req, res) => {
+    const { q } = req.query
+
+    const notes = await searchNotesUseCase.execute({
+      q,
+    })
+
+    res
+      .status(200)
+      .json(notes)
+  },
+)
 )
 
 module.exports = noteRouter

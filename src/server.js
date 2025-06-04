@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const { z } = require('zod')
+const cors = require('cors')
 
 const appPaths = require('./shared/consts/app-paths')
 const noteRoute = require('./modules/note/routes/note.route')
@@ -10,6 +11,9 @@ dotenv.config()
 
 const app = express()
 
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+}))
 app.use(express.json())
 
 app.use(

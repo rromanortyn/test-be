@@ -11,7 +11,11 @@ const noteService = {
   },
 
   async getNotes() {
-    const notes = await appPrismaClient.noteEntity.findMany()
+    const notes = await appPrismaClient.noteEntity.findMany({
+      orderBy: {
+        updatedAt: 'desc',
+      },
+    })
 
     return notes
   },
@@ -66,6 +70,18 @@ const noteService = {
       },
     })
   },
+
+  async searchNotes(q) {
+    const notes = await appPrismaClient.noteEntity.findMany({
+      where: {
+        title: {
+          search: q.toLowerCase(),
+        },
+      },
+    })
+
+    return notes
+  }
 }
 
 module.exports = noteService
