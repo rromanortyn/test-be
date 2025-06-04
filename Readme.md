@@ -1,8 +1,8 @@
 ### To use this application
 you need to have Docker installed on your device.
 
-### To start the serveruse
-`docker compose up --build`.
+### To start the server
+use `docker compose up --build`.
 
 The application will start on the port specified in the environment variables.
 
